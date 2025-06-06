@@ -1,0 +1,114 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier", "unused-imports"],
+  "extends": [
+    "prettier",
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    },
+    "react": {
+      "version": "detect"
+    }
+  },
+  "ignorePatterns": ["lint-staged.config.js", "tailwind.config.ts"],
+  "rules": {
+    "no-console": ["error", { "allow": ["error"] }],
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "{}": false
+        }
+      }
+    ],
+    "@typescript-eslint/no-inferrable-types": [
+      2,
+      {
+        "ignoreParameters": true,
+        "ignoreProperties": true
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "semi": true,
+        "singleQuote": true,
+        "trailingComma": "all",
+        "htmlWhitespaceSensitivity": "strict",
+        "arrowParens": "always",
+        "endOfLine": "lf"
+      }
+    ],
+    "max-lines": [
+      2,
+      {
+        "max": 300,
+        "skipBlankLines": true,
+        "skipComments": true
+      }
+    ],
+    "max-lines-per-function": [
+      2,
+      {
+        "max": 300,
+        "skipBlankLines": true,
+        "skipComments": true,
+        "IIFEs": true
+      }
+    ],
+    "max-params": [2, 3],
+    "max-depth": [2, 4],
+    "max-statements": [2, 20],
+    "max-statements-per-line": [2, { "max": 1 }],
+    "quote-props": [0, "always"],
+    "import/named": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "index",
+          "sibling",
+          "parent",
+          "object",
+          "type"
+        ]
+      }
+    ],
+    "import/no-duplicates": ["error", { "considerQueryString": true }],
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/camelcase": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  },
+  "root": true
+}
