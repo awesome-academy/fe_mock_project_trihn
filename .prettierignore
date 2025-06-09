@@ -1,0 +1,15 @@
+# Dependency directories
+node_modules
+
+# Build directory
+.out
+.next
+
+# Environment variables
+.env*
+
+# JSON files
+package.json
+
+# Ignore all log files
+*.log
