@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cities",
+  "info": {
+    "singularName": "city",
+    "pluralName": "cities",
+    "displayName": "City",
+    "description": "A city where cinemas are located"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "cinemas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cinema.cinema",
+      "mappedBy": "city"
+    }
+  }
+}

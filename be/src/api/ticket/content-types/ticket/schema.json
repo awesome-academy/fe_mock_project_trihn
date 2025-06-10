@@ -1,0 +1,37 @@
+{
+  "collectionName": "tickets",
+  "info": {
+    "singularName": "ticket",
+    "pluralName": "tickets",
+    "displayName": "Ticket"
+  },
+  "attributes": {
+    "ticketStatus": {
+      "type": "enumeration",
+      "enum": ["available", "booked", "cancelled"],
+      "default": "available"
+    },
+    "paymentStatus": {
+      "type": "enumeration",
+      "enum": ["unpaid", "paid", "refunded"],
+      "default": "unpaid"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "showtime": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::showtime.showtime",
+      "required": true
+    },
+    "seat": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::seat.seat",
+      "required": true
+    }
+  }
+}

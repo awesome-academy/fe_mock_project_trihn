@@ -17,14 +17,14 @@
       },
       "typescript": {
         "alwaysTryTypes": true,
-        "project": "./tsconfig.json"
+        "project": "./fe/tsconfig.json"
       }
     },
     "react": {
       "version": "detect"
     }
   },
-  "ignorePatterns": ["lint-staged.config.js", "tailwind.config.ts"],
+  "ignorePatterns": ["tailwind.config.ts"],
   "rules": {
     "no-console": ["error", { "allow": ["error"] }],
     "@typescript-eslint/no-empty-interface": "off",
