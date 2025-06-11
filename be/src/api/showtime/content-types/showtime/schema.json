@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "showtimes",
+  "info": {
+    "singularName": "showtime",
+    "pluralName": "showtimes",
+    "displayName": "Showtime",
+    "description": "Showtimes for movies in rooms"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "movie": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::movie.movie",
+      "inversedBy": "showtimes"
+    },
+    "room": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::room.room",
+      "inversedBy": "showtimes"
+    },
+    "startTime": {
+      "type": "datetime",
+      "required": true
+    },
+    "tickets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ticket.ticket",
+      "mappedBy": "showtime"
+    }
+  }
+}

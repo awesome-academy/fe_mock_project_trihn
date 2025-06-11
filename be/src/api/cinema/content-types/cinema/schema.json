@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cinemas",
+  "info": {
+    "singularName": "cinema",
+    "pluralName": "cinemas",
+    "displayName": "Cinema",
+    "description": "Cinemas in a city"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::city.city",
+      "inversedBy": "cinemas"
+    },
+    "rooms": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::room.room",
+      "mappedBy": "cinema"
+    }
+  }
+}
