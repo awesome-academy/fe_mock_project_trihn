@@ -59,6 +59,18 @@
       "multiple": false,
       "required": false,
       "allowedTypes": ["images"]
+    },
+    "birthDate": {
+      "type": "date",
+      "required": false
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": ["male", "female"]
+    },
+    "phoneNumber": {
+      "type": "string",
+      "required": false
     }
   }
 }
