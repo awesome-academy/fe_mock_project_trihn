@@ -1,0 +1,14 @@
+{
+  "email": "Email",
+  "password": "Password",
+  "remember_me": "Remember me",
+  "forgot_password": "Forgot password",
+  "sign_in": "Sign in",
+  "sign_in_to_your_account": "Sign in to your account",
+  "email_required": "Email is required",
+  "invalid_email": "Please enter a valid email address",
+  "password_required": "Password is required",
+  "password_min": "Password must be at least {{len}} characters",
+  "email_is_not_confirmed_or_registered": "Email is not confirmed or registered",
+  "invalid_email_or_password": "Invalid email or password"
+}

@@ -1,14 +1,32 @@
+/* eslint-disable max-statements */
 import { NextResponse, NextRequest } from 'next/server';
 import acceptLanguage from 'accept-language';
 import { fallbackLng, languages, cookieName } from '@/app/i18n/settings';
+import {
+  adminRoutes,
+  loginRoutes,
+  routes,
+  userRoutes,
+} from '@/app/utils/routes';
+import { Language, Role } from '@/app/utils/enum';
+import { getPathname, isMatch } from '@/app/utils/helpers';
+import { REDIRECT_TO, ROLE, TOKEN } from '@/app/utils/constants';
 
 acceptLanguage.languages(languages);
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico)*)'],
+  matcher: ['/vi/:path*', '/en/:path*'],
 };
 
+function redirectTo(path: string, req: NextRequest) {
+  return NextResponse.redirect(new URL(path, req.url));
+}
+
 export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  const token = req.cookies.get(TOKEN)?.value;
+  const role = req.cookies.get(ROLE)?.value;
+
   if (
     req.nextUrl.pathname.indexOf('icon') > -1 ||
     req.nextUrl.pathname.indexOf('chrome') > -1
@@ -18,10 +36,10 @@ export function middleware(req: NextRequest) {
   if (req.cookies.has(cookieName)) {
     lng = acceptLanguage.get(
       (req.cookies.get(cookieName) as App.Any).value,
-    ) as string;
+    ) as Language;
   }
   if (!lng) {
-    lng = fallbackLng;
+    lng = fallbackLng as Language;
   }
 
   // Redirect if lng in path is not supported
@@ -30,7 +48,7 @@ export function middleware(req: NextRequest) {
     !req.nextUrl.pathname.startsWith('/_next')
   ) {
     return NextResponse.redirect(
-      new URL(`/${lng}${req.nextUrl.pathname}`, req.url),
+      new URL(getPathname(lng, req.nextUrl.pathname), req.url),
     );
   }
 
@@ -42,6 +60,40 @@ export function middleware(req: NextRequest) {
     const response = NextResponse.next();
     if (lngInReferer) response.cookies.set(cookieName, lngInReferer);
     return response;
+  }
+
+  const path = pathname.replace(`/${lng}`, '') || routes.HOME;
+
+  if (token && isMatch(path, loginRoutes)) {
+    const redirectPath = path.startsWith('/admin')
+      ? routes.DASHBOARD
+      : routes.HOME;
+    return NextResponse.redirect(new URL(`/${lng}${redirectPath}`, req.url));
+  }
+
+  if (isMatch(path, adminRoutes)) {
+    if (!token) {
+      const response = redirectTo(getPathname(lng, routes.ADMIN_LOGIN), req);
+      response.cookies.set(REDIRECT_TO, pathname);
+      return response;
+    }
+    if (role !== Role.ADMIN) {
+      return redirectTo(getPathname(lng, routes.NOT_FOUND), req);
+    }
+  }
+
+  if (isMatch(path, userRoutes)) {
+    if (!token) {
+      const response = redirectTo(getPathname(lng, routes.LOGIN), req);
+      response.cookies.set(REDIRECT_TO, pathname);
+      return response;
+    }
+  }
+
+  if (!isMatch(path, Object.values(routes))) {
+    return NextResponse.rewrite(
+      new URL(getPathname(lng, routes.NOT_FOUND), req.url),
+    );
   }
 
   return NextResponse.next();
