@@ -26,9 +26,12 @@ const Input = <T extends FieldValues>({
   setValue,
   ...props
 }: PropsType<T>): JSX.Element => {
+  const { onBlur, ...restRegister } = register(name);
+
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>): void => {
     const trimmed = e.target.value.trim();
     setValue(name, trimmed as T[typeof name], { shouldValidate: true });
+    onBlur(e);
   };
 
   return (
@@ -39,10 +42,8 @@ const Input = <T extends FieldValues>({
         </label>
       )}
       <input
-        {...register(name)}
+        {...restRegister}
         {...props}
-        id={name}
-        name={name}
         className={classnames(
           'input input-bordered w-full focus:outline-none focus:border-gray-100 focus:ring focus:ring-100',
           { 'border-red-500 focus:ring-red-300': !!error },

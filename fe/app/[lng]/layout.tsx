@@ -6,8 +6,8 @@ import StoreProvider from '@/app/components/StoreProvider';
 import LoadingIndicator from '@/app/components/LoadingIndicator';
 import AuthLoader from '@/app/components/AuthLoader';
 import type { Metadata } from 'next';
-import 'react-toastify/dist/ReactToastify.css';
 import './globals.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   title: 'Cinema',
@@ -28,7 +28,7 @@ export default function RootLayout({
         <ThemeProvider>
           <StoreProvider>
             <LoadingIndicator />
-            <AuthLoader />
+            <AuthLoader lng={lng} />
             {children}
           </StoreProvider>
         </ThemeProvider>

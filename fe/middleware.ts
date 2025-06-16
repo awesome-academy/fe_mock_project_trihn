@@ -73,8 +73,9 @@ export function middleware(req: NextRequest) {
 
   if (isMatch(path, adminRoutes)) {
     if (!token) {
-      req.cookies.set(REDIRECT_TO, pathname);
-      return redirectTo(getPathname(lng, routes.ADMIN_LOGIN), req);
+      const response = redirectTo(getPathname(lng, routes.ADMIN_LOGIN), req);
+      response.cookies.set(REDIRECT_TO, pathname);
+      return response;
     }
     if (role !== Role.ADMIN) {
       return redirectTo(getPathname(lng, routes.NOT_FOUND), req);
@@ -83,8 +84,9 @@ export function middleware(req: NextRequest) {
 
   if (isMatch(path, userRoutes)) {
     if (!token) {
-      req.cookies.set(REDIRECT_TO, pathname);
-      return redirectTo(getPathname(lng, routes.LOGIN), req);
+      const response = redirectTo(getPathname(lng, routes.LOGIN), req);
+      response.cookies.set(REDIRECT_TO, pathname);
+      return response;
     }
   }
 

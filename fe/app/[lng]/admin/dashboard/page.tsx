@@ -1,6 +1,6 @@
 'use client';
 import { useSelector } from 'react-redux';
-import type { AppState } from '@/app/store/rootReducer';
+import type { AppState } from '@/app/store';
 import type { FC } from 'react';
 
 //TODO

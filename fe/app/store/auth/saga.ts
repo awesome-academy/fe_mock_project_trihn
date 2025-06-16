@@ -10,6 +10,7 @@ import { get, noop } from 'lodash';
 import { setRole, setToken } from '@/app/utils/cookie';
 import axios from '@/app/lib/axios';
 import { StatusCode } from '@/app/utils/enum';
+import { LOGIN_ENDPOINT } from '@/app/utils/constants';
 import { fetchUserInfoRequest, loginRequest, loginSuccess } from './slice';
 import { startLoading, stopLoading } from '../loading/slice';
 import type { PayloadAction } from '@reduxjs/toolkit';
@@ -29,7 +30,7 @@ function* loginRequestSaga(
   try {
     yield put(startLoading());
     const { jwt } = yield call(() =>
-      axios.post('/auth/local', { identifier: email, password }),
+      axios.post(LOGIN_ENDPOINT, { identifier: email, password }),
     );
     setToken(jwt, remember);
 

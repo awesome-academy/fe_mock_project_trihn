@@ -1,6 +1,6 @@
 'use client';
 import { useSelector } from 'react-redux';
-import { AppState } from '@/app/store/rootReducer';
+import { AppState } from '@/app/store';
 import Spin from '../Spin';
 import type { FC } from 'react';
 

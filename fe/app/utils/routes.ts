@@ -6,6 +6,7 @@ export const routes = {
   DASHBOARD: '/admin/dashboard',
   PROFILE: '/profile',
   NOT_FOUND: '/404',
+  INTERNAL_SERVER_ERROR: '/500',
 };
 
 export const loginRoutes = [

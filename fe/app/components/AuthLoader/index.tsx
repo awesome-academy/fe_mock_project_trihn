@@ -1,18 +1,39 @@
 'use client';
 import { useEffect } from 'react';
-import { getCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { usePathname, useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { fetchUserInfoRequest } from '@/app/store/auth/slice';
-import { TOKEN } from '@/app/utils/constants';
+
+import { fetchUserInfoRequest, logout } from '@/app/store/auth/slice';
+import { getPathname, isTokenValid, resetStore } from '@/app/utils/helpers';
+import { REDIRECT_TO, ROLE, TOKEN } from '@/app/utils/constants';
+import { routes } from '@/app/utils/routes';
 import type { FC } from 'react';
 
-const AuthLoader: FC = (): JSX.Element => {
+const AuthLoader: FC<App.Lang> = ({ lng }): JSX.Element => {
   const dispatch = useDispatch();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (getCookie(TOKEN)) {
-      dispatch(fetchUserInfoRequest());
+    const token = getCookie(TOKEN);
+    if (token) {
+      if (isTokenValid(token)) {
+        dispatch(fetchUserInfoRequest());
+      } else {
+        deleteCookie(TOKEN);
+        deleteCookie(ROLE);
+        dispatch(logout());
+        resetStore(dispatch);
+        setCookie(REDIRECT_TO, pathname);
+
+        const isAdmin = pathname.includes('/admin');
+        router.replace(
+          getPathname(lng, isAdmin ? routes.ADMIN_LOGIN : routes.LOGIN),
+        );
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;

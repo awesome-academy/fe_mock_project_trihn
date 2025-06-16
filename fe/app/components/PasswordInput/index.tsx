@@ -37,8 +37,6 @@ const PasswordInput = <T extends FieldValues>({
         <input
           {...register(name)}
           {...props}
-          id={name}
-          name={name}
           type={showPassword ? 'text' : 'password'}
           className={classnames(
             'input input-bordered w-full focus:outline-none focus:border-gray-100 focus:ring focus:ring-100 pr-9',

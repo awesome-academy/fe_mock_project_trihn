@@ -11,3 +11,5 @@ export const TOKEN = 'token';
 export const ROLE = 'role';
 
 export const REDIRECT_TO = 'redirectTo';
+
+export const LOGIN_ENDPOINT = '/auth/local';
