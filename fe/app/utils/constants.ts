@@ -1,3 +1,7 @@
+import Vietnam from '@/app/icon/Vietnam';
+import England from '@/app/icon/England';
+import { Language } from './enum';
+
 export const REPLACE_LOCALE_REGEX = /[^\\/][-a-zA-Z]*/;
 
 export const EMAIL_REGEX =
@@ -12,4 +16,19 @@ export const ROLE = 'role';
 
 export const REDIRECT_TO = 'redirectTo';
 
+export const SIDEBAR_EXPANDED = 'sidebarExpanded';
+
 export const LOGIN_ENDPOINT = '/auth/local';
+
+export const LANGUAGES = {
+  vi: {
+    code: Language.VI,
+    label: 'vietnamese',
+    icon: Vietnam,
+  },
+  en: {
+    code: Language.EN,
+    label: 'english',
+    icon: England,
+  },
+};

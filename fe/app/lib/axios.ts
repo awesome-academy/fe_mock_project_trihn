@@ -16,7 +16,7 @@ import { routes } from '@/app/utils/routes';
 import { logout } from '@/app/store/auth/slice';
 
 const axiosClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
 });
 
 axiosClient.interceptors.request.use((config) => {

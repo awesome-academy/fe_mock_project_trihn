@@ -25,13 +25,13 @@ export default function RootLayout({
     <html lang={lng} dir={dir(lng)}>
       <body>
         <ToastContainer position="top-right" autoClose={3000} />
-        <ThemeProvider>
-          <StoreProvider>
+        <StoreProvider>
+          <ThemeProvider>
             <LoadingIndicator />
             <AuthLoader lng={lng} />
             {children}
-          </StoreProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </StoreProvider>
       </body>
     </html>
   );
