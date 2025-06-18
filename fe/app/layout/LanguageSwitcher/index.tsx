@@ -1,8 +1,7 @@
 'use client';
-import { useRef, type Dispatch, type SetStateAction } from 'react';
-import { noop } from 'lodash';
-import { ChevronDown } from 'lucide-react';
+
 import classNames from 'classnames';
+import { ChevronDown } from 'lucide-react';
 
 import Dropdown from '@/app/components/Dropdown';
 import useLanguage from '@/app/hooks/use-language';
@@ -13,9 +12,6 @@ import { LANGUAGES } from '@/app/utils/constants';
 export default function LanguageSwitcher({ lng }: App.Lang) {
   const { language, handleLanguage } = useLanguage(lng);
   const { t } = useTranslation(lng, 'common');
-  const dropdownRef = useRef<{
-    setDropdownOpen: Dispatch<SetStateAction<boolean>>;
-  }>({ setDropdownOpen: noop });
   const { isDark } = useTheme();
   const LanguageIcon = LANGUAGES[language].icon;
 
@@ -28,24 +24,26 @@ export default function LanguageSwitcher({ lng }: App.Lang) {
         </div>
       }
       className="!min-w-[134px]"
-      ref={dropdownRef}
     >
-      {Object.values(LANGUAGES).map((lang) => (
-        <button
-          key={lang.code}
-          onClick={() => {
-            handleLanguage(lang.code);
-            dropdownRef.current.setDropdownOpen(false);
-          }}
-          className={classNames(
-            'w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2',
-            { 'hover:!bg-gray-700': isDark },
-          )}
-        >
-          <lang.icon />
-          {t(lang.label)}
-        </button>
-      ))}
+      {(setDropdownOpen) =>
+        Object.values(LANGUAGES).map((lang) => (
+          <button
+            role="menuitem"
+            key={lang.code}
+            onClick={() => {
+              handleLanguage(lang.code);
+              setDropdownOpen(false);
+            }}
+            className={classNames(
+              'w-full text-left px-4 py-2 text-sm hover:bg-gray-100 flex items-center gap-2',
+              { 'hover:!bg-gray-700': isDark },
+            )}
+          >
+            <lang.icon />
+            {t(lang.label)}
+          </button>
+        ))
+      }
     </Dropdown>
   );
 }

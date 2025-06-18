@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import React, { memo, type FC } from 'react';
 import classNames from 'classnames';
 import useTheme from '@/app/hooks/use-theme';
 import ThemeToggle from '../ThemeToggle';
@@ -38,4 +38,4 @@ const AdminHeader: FC<App.Lang> = ({ lng }) => {
   );
 };
 
-export default AdminHeader;
+export default memo(AdminHeader);

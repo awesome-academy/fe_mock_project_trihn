@@ -1,5 +1,4 @@
 'use client';
-import React, { useState, useEffect, type FC } from 'react';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { ArrowLeftToLine, ArrowRightToLine } from 'lucide-react';
@@ -8,26 +7,15 @@ import { getSidebar } from '@/app/utils/sidebar';
 import { useTranslation } from '@/app/i18n/client';
 import { getPathname } from '@/app/utils/helpers';
 import { routes } from '@/app/utils/routes';
-import { SIDEBAR_EXPANDED } from '@/app/utils/constants';
+import useSidebarExpanded from '@/app/hooks/use-sidebar-expanded';
 import Logo from '@/app/icon/Logo';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import SidebarLink from './SidebarLink';
+import type { FC } from 'react';
 
 const Sidebar: FC<App.Lang> = ({ lng }) => {
   const { t } = useTranslation(lng, 'sidebar');
-  const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(true);
-
-  useEffect(() => {
-    const stored = localStorage.getItem(SIDEBAR_EXPANDED);
-    if (stored) {
-      setSidebarExpanded(stored === 'true');
-    }
-  }, []);
-
-  const handleSidebarExpanded = (expanded: boolean): void => {
-    setSidebarExpanded(expanded);
-    localStorage.setItem(SIDEBAR_EXPANDED, String(expanded));
-  };
+  const { sidebarExpanded, handleSidebarExpanded } = useSidebarExpanded();
 
   return (
     <div className="min-w-fit">
@@ -46,23 +34,23 @@ const Sidebar: FC<App.Lang> = ({ lng }) => {
           <div>
             <h3 className="text-xs uppercase text-base-content font-semibold pl-3">
               <span
-                className={classNames('hidden', { '!block': sidebarExpanded })}
+                className={classNames(sidebarExpanded ? 'block' : 'hidden')}
               >
                 {t('pages')}
               </span>
             </h3>
             <ul className="mt-3">
-              {getSidebar(lng, t).map((item) =>
+              {getSidebar(lng, t).map((item, index) =>
                 item.subMenu ? (
                   <SidebarLinkGroup
-                    key={item.label}
+                    key={`${item.label}${index}`}
                     sidebarExpanded={sidebarExpanded}
                     menu={item}
                     onClick={() => handleSidebarExpanded(true)}
                   />
                 ) : (
                   <SidebarLink
-                    key={item.label}
+                    key={item.href}
                     menu={item}
                     sidebarExpanded={sidebarExpanded}
                   />

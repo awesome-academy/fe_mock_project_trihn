@@ -14,7 +14,10 @@ const ThemeProvider: FC<PropsType> = ({ children }): JSX.Element => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const theme = (localStorage.getItem(THEME) as Theme) || Theme.LIGHT;
+    const storedTheme = localStorage.getItem(THEME);
+    const theme = Object.values(Theme).includes(storedTheme as Theme)
+      ? (storedTheme as Theme)
+      : Theme.LIGHT;
     dispatch(setCurrentTheme(theme));
     document.documentElement.setAttribute('data-theme', theme);
     // eslint-disable-next-line react-hooks/exhaustive-deps

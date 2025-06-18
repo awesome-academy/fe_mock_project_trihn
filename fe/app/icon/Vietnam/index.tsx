@@ -1,12 +1,17 @@
-import type { FC } from 'react';
+import type { FC, SVGProps } from 'react';
 
-const Vietnam: FC = (): JSX.Element => {
+const Vietnam: FC<SVGProps<SVGSVGElement>> = ({
+  width = 24,
+  height = 18,
+  ...props
+}) => {
   return (
     <svg
-      width="24"
-      height="18"
+      width={width}
+      height={height}
       viewBox="0 0 640 480"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <rect width="640" height="480" fill="#da251d" />
       <path

@@ -9,7 +9,7 @@ import type { FC } from 'react';
 type SidebarLinkGroupProps = {
   sidebarExpanded: boolean;
   menu: Sidebar.Menu;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const SidebarLinkGroup: FC<SidebarLinkGroupProps> = ({
@@ -23,7 +23,7 @@ const SidebarLinkGroup: FC<SidebarLinkGroupProps> = ({
 
   const handleClick = (): void => {
     setOpen(!open);
-    onClick();
+    onClick && onClick();
   };
 
   return (
@@ -59,14 +59,10 @@ const SidebarLinkGroup: FC<SidebarLinkGroupProps> = ({
           </div>
         </div>
       </button>
-      <div
-        className={classNames('hidden', {
-          '!block': open && sidebarExpanded,
-        })}
-      >
+      <div className={classNames(open && sidebarExpanded ? 'block' : 'hidden')}>
         <ul className="pl-8 mt-1">
           {menu.subMenu.map((subMenu) => (
-            <li key={subMenu.label} className="mb-1 last:mb-0">
+            <li key={subMenu.href} className="mb-1 last:mb-0">
               <Link
                 href={subMenu.href}
                 className={classNames(
