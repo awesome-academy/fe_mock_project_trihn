@@ -1,3 +1,76 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+[data-theme='light'] {
+  .bg-sidebar {
+    @apply bg-white;
+  }
+
+  .active-menu, .hover-menu:hover {
+    @apply from-violet-500/[0.12] to-violet-500/[0.04];
+  }
+
+  .hover-menu:hover {
+    @apply from-violet-500/[0.12] to-violet-500/[0.04];
+  }
+
+  .text-menu {
+    @apply text-gray-800;
+
+    &:hover {
+        @apply text-gray-900;
+    } 
+  }
+
+  .text-gray-base {
+    @apply text-gray-400;
+  }
+
+  .text-gray-base-hover {
+    @apply text-gray-500;
+  }
+
+  .text-violet-base {
+    @apply text-violet-500;
+
+    &:hover {
+      @apply text-violet-600;
+    }
+  }
+}
+
+[data-theme='dark'] {
+  .bg-sidebar {
+    @apply bg-gray-800;
+  }
+
+  .active-menu, .hover-menu:hover {
+    @apply from-violet-500/[0.24];
+  }
+
+  .text-menu {
+    @apply text-gray-100;
+
+    &:hover {
+        @apply text-white;
+    } 
+  }
+
+  .text-gray-base {
+    @apply text-gray-500;
+  }
+
+
+  .text-gray-base-hover {
+    @apply text-gray-400;
+  }
+
+  .text-violet-base {
+    @apply text-violet-500;
+
+    &:hover {
+      @apply text-violet-400;
+    }
+  }
+}
