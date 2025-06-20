@@ -45,3 +45,41 @@ export const resetStore = (dispatch: AppDispatch): void => {
   persistor.purge();
   dispatch({ type: 'RESET_STORE' });
 };
+
+export const getPaginationRange = (
+  current: number,
+  total: number,
+  siblingCount: number,
+): (number | '...')[] => {
+  const totalPageNumbers = siblingCount * 2 + 5;
+  if (totalPageNumbers >= total) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  const leftSibling = Math.max(current - siblingCount, 1);
+  const rightSibling = Math.min(current + siblingCount, total);
+  const showLeftDots = leftSibling > 2;
+  const showRightDots = rightSibling < total - 1;
+
+  if (!showLeftDots && showRightDots) {
+    const leftRange = Array.from(
+      { length: 3 + siblingCount * 2 },
+      (_, i) => i + 1,
+    );
+    return [...leftRange, '...', total];
+  }
+
+  if (showLeftDots && !showRightDots) {
+    const rightRange = Array.from(
+      { length: 3 + siblingCount * 2 },
+      (_, i) => total - (3 + siblingCount * 2) + 1 + i,
+    );
+    return [1, '...', ...rightRange];
+  }
+
+  const middleRange = Array.from(
+    { length: rightSibling - leftSibling + 1 },
+    (_, i) => leftSibling + i,
+  );
+  return [1, '...', ...middleRange, '...', total];
+};

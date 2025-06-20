@@ -12,7 +12,7 @@ import { getLoginSchema, LoginFormValues } from '@/app/validation/loginSchema';
 import Input from '@/app/components/Input';
 import PasswordInput from '@/app/components/PasswordInput';
 import { loginRequest } from '@/app/store/auth/slice';
-import { Button } from '@/app/components/Button';
+import Button from '@/app/components/Button';
 import { routes } from '@/app/utils/routes';
 import { Role } from '@/app/utils/enum';
 import { REDIRECT_TO } from '@/app/utils/constants';
