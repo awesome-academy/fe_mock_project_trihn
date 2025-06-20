@@ -1,5 +1,6 @@
 /* eslint-disable max-statements */
 import axios, { AxiosError } from 'axios';
+import qs from 'qs';
 import { toast } from 'react-toastify';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { Language, StatusCode } from '@/app/utils/enum';
@@ -17,6 +18,9 @@ import { logout } from '@/app/store/auth/slice';
 
 const axiosClient = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
+  paramsSerializer: {
+    serialize: (params) => qs.stringify(params, { encodeValuesOnly: true }),
+  },
 });
 
 axiosClient.interceptors.request.use((config) => {

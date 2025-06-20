@@ -1,13 +1,14 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-[data-theme='light'] {
+[data-theme="light"] {
   .bg-sidebar {
     @apply bg-white;
   }
 
-  .active-menu, .hover-menu:hover {
+  .active-menu,
+  .hover-menu:hover {
     @apply from-violet-500/[0.12] to-violet-500/[0.04];
   }
 
@@ -19,8 +20,8 @@
     @apply text-gray-800;
 
     &:hover {
-        @apply text-gray-900;
-    } 
+      @apply text-gray-900;
+    }
   }
 
   .text-gray-base {
@@ -40,12 +41,13 @@
   }
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   .bg-sidebar {
     @apply bg-gray-800;
   }
 
-  .active-menu, .hover-menu:hover {
+  .active-menu,
+  .hover-menu:hover {
     @apply from-violet-500/[0.24];
   }
 
@@ -53,14 +55,13 @@
     @apply text-gray-100;
 
     &:hover {
-        @apply text-white;
-    } 
+      @apply text-white;
+    }
   }
 
   .text-gray-base {
     @apply text-gray-500;
   }
-
 
   .text-gray-base-hover {
     @apply text-gray-400;
@@ -73,4 +74,12 @@
       @apply text-violet-400;
     }
   }
+}
+
+input[type="checkbox"].toggle:disabled {
+  opacity: 0.7 !important;
+}
+
+button:disabled {
+  @apply opacity-60;
 }

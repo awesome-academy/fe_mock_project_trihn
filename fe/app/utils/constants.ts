@@ -32,3 +32,10 @@ export const LANGUAGES = {
     icon: England,
   },
 };
+
+export const PAGINATION_INITIAL = {
+  page: 0,
+  pageCount: 0,
+  pageSize: 0,
+  total: 0,
+};

@@ -1,6 +1,5 @@
 'use client';
 import classNames from 'classnames';
-import Image from 'next/image';
 import { deleteCookie } from 'cookies-next';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
@@ -15,6 +14,7 @@ import { ROLE, TOKEN } from '@/app/utils/constants';
 import { logout } from '@/app/store/auth/slice';
 import useTheme from '@/app/hooks/use-theme';
 import Dropdown from '@/app/components/Dropdown';
+import Avatar from '@/app/components/Avatar';
 
 const DropdownProfile: React.FC<App.Lang> = ({ lng }) => {
   const user = useSelector<AppState, App.User>((state) => state.auth.user);
@@ -41,18 +41,7 @@ const DropdownProfile: React.FC<App.Lang> = ({ lng }) => {
     <Dropdown
       label={
         <>
-          <Image
-            className="w-8 h-8 rounded-full"
-            src={
-              user?.avatar?.url
-                ? `${process.env.NEXT_PUBLIC_API_URL}${user.avatar.url}`
-                : '/images/default-avatar.jpg'
-            }
-            width="32"
-            height="32"
-            alt="avatar user"
-            unoptimized
-          />
+          <Avatar url={user?.avatar?.url} />
           <div className="flex items-center gap-1">
             <span
               className={classNames(
