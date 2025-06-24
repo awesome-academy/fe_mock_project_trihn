@@ -1,0 +1,14 @@
+{
+  "search_email_or_username": "Search email or username",
+  "email": "Email",
+  "username": "Username",
+  "birth_date": "Birth date",
+  "phone_number": "Phone number",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "confirmed": "Confirmed",
+  "blocked": "Blocked",
+  "user_deleted": "User deleted successfully.",
+  "user_status_updated": "User {{field}} status updated."
+}

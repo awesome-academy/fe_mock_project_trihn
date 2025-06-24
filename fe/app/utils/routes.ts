@@ -21,6 +21,6 @@ export const loginRoutes = [
 
 export const publicRoutes = [routes.HOME];
 
-export const adminRoutes = [routes.DASHBOARD];
+export const adminRoutes = [routes.DASHBOARD, routes.USERS];
 
 export const userRoutes = [routes.PROFILE];

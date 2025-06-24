@@ -46,4 +46,22 @@ declare namespace App {
     onFailure?: (...args) => void;
     onFinish?: (...args) => void;
   };
+
+  type Pagination = {
+    page: number;
+    pageCount: number;
+    pageSize: number;
+    total: number;
+  };
+
+  type Meta = {
+    pagination: Pagination;
+  };
+
+  type Params = {
+    page: number;
+    pageSize: number;
+    sort?: string[];
+    search: string;
+  };
 }

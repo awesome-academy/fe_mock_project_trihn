@@ -1,0 +1,14 @@
+{
+  "search_email_or_username": "Tìm kiếm email hoặc tên người dùng",
+  "email": "Email",
+  "username": "Tên người dùng",
+  "birth_date": "Ngày sinh",
+  "phone_number": "Số điện thoại",
+  "gender": "Giới tính",
+  "male": "Nam",
+  "female": "Nữ",
+  "confirmed": "Xác thực",
+  "blocked": "Chặn",
+  "user_deleted": "Xoá người dùng thành công.",
+  "user_status_updated": "Trạng thái {{field}} của người dùng đã được cập nhật."
+}

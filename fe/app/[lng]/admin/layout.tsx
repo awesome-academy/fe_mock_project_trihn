@@ -18,13 +18,13 @@ export default function DashboardLayout({ params: { lng }, children }: Props) {
   );
 
   return isLoggedIn ? (
-    <div className="flex  h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden">
       <Sidebar lng={lng} />
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+      <div className="relative flex flex-col flex-1 h-full overflow-y-auto overflow-x-hidden">
         <AdminHeader lng={lng} />
         <main
           className={classNames(
-            'px-8 py-8 w-full max-w-9xl mx-auto min-h-[calc(100vh-4rem)] bg-gray-100/90',
+            'flex-1 overflow-y-auto px-8 py-8 w-full max-w-9xl mx-auto bg-gray-100/90',
             { '!bg-gray-900/90': isDark },
           )}
         >

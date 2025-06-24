@@ -3,5 +3,11 @@
   "profile": "Profile",
   "sign_out": "Sign Out",
   "vietnamese": "Vietnamese",
-  "english": "English"
+  "english": "English",
+  "page": "Page",
+  "action": "Action",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "confirm_delete": "Confirm delete?",
+  "are_you_sure": "Are you sure you want to delete this item?"
 }

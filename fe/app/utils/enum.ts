@@ -21,3 +21,8 @@ export enum Role {
   USER = 'Authenticated',
   ADMIN = 'Admin',
 }
+
+export enum SortDirection {
+  ASC = 'asc',
+  DESC = 'desc',
+}

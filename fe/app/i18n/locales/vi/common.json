@@ -3,5 +3,11 @@
   "profile": "Hồ Sơ",
   "sign_out": "Đăng Xuất",
   "vietnamese": "Tiếng Việt",
-  "english": "Tiếng Anh"
+  "english": "Tiếng Anh",
+  "page": "Trang",
+  "action": "Hoạt động",
+  "cancel": "Huỷ",
+  "delete": "Xoá",
+  "confirm_delete": "Xác nhận xoá?",
+  "are_you_sure": "Bạn có chắc muốn xoá mục này không?"
 }
