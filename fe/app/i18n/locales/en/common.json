@@ -1,5 +1,6 @@
 {
   "save": "Save",
+  "add": "Add",
   "profile": "Profile",
   "sign_out": "Sign Out",
   "vietnamese": "Vietnamese",
@@ -9,5 +10,14 @@
   "cancel": "Cancel",
   "delete": "Delete",
   "confirm_delete": "Confirm delete?",
-  "are_you_sure": "Are you sure you want to delete this item?"
+  "are_you_sure": "Are you sure you want to delete this item?",
+  "create": "Create",
+  "male": "Male",
+  "female": "Female",
+  "create_success": "{{entity}} has been created successfully",
+  "update_success": "{{entity}} has been updated successfully",
+  "delete_success": "{{entity}} has been deleted successfully",
+  "unsaved_changes": "You have unsaved changes",
+  "discard_changes_question": "Are you sure you want to discard your changes?",
+  "discard": "Discard"
 }

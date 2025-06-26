@@ -30,6 +30,7 @@ export default function RootLayout({
             <LoadingIndicator />
             <AuthLoader lng={lng} />
             {children}
+            <div id="datepicker-portal" />
           </ThemeProvider>
         </StoreProvider>
       </body>

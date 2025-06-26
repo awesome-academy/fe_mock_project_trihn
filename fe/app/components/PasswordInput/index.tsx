@@ -13,6 +13,7 @@ type PropsType<T extends FieldValues> =
     label?: string;
     error?: FieldError;
     name: Path<T>;
+    required?: boolean;
     register: UseFormRegister<T>;
   };
 
@@ -21,6 +22,8 @@ const PasswordInput = <T extends FieldValues>({
   label,
   className,
   error,
+  required,
+  disabled,
   register,
   ...props
 }: PropsType<T>): JSX.Element => {
@@ -31,12 +34,14 @@ const PasswordInput = <T extends FieldValues>({
       {label && (
         <label htmlFor={name} className="label mb-[2px]">
           <span className="label-text">{label}</span>
+          {required && <span className="text-red-500">*</span>}
         </label>
       )}
       <div className="relative">
         <input
           {...register(name)}
           {...props}
+          disabled={disabled}
           type={showPassword ? 'text' : 'password'}
           className={classnames(
             'input input-bordered w-full focus:outline-none focus:border-gray-100 focus:ring focus:ring-100 pr-9',
@@ -44,13 +49,15 @@ const PasswordInput = <T extends FieldValues>({
             className,
           )}
         />
-        <button
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-base-content focus:outline-none z-10"
-        >
-          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-        </button>
+        {!disabled && (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 focus:outline-none z-10"
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        )}
       </div>
       {error && (
         <span className="text-sm text-red-500 mt-1">{error.message}</span>

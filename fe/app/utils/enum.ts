@@ -26,3 +26,16 @@ export enum SortDirection {
   ASC = 'asc',
   DESC = 'desc',
 }
+
+export enum Gender {
+  MALE = 'male',
+  FEMALE = 'female',
+}
+
+export enum I18nNamespace {
+  COMMON = 'common',
+  LOGIN = 'login',
+  SIDEBAR = 'sidebar',
+  USERS = 'users',
+  VALIDATION = 'validation',
+}

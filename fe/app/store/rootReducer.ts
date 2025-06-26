@@ -6,28 +6,16 @@ import loadingReducer from './loading/slice';
 import themeReducer from './theme/slice';
 import usersReducer from './users/slice';
 
-const appReducer = combineReducers({
-  auth: authReducer,
+const persistConfigs = {
+  auth: { key: 'auth', storage },
+  users: { key: 'users', storage },
+};
+
+const rootReducer = combineReducers({
+  auth: persistReducer(persistConfigs.auth, authReducer),
+  users: persistReducer(persistConfigs.users, usersReducer),
   loading: loadingReducer,
   theme: themeReducer,
-  users: usersReducer,
 });
 
-const rootReducer = (
-  state: ReturnType<typeof appReducer> | undefined,
-  action: App.Any,
-) => {
-  if (action.type === 'RESET_STORE') {
-    storage.removeItem('persist:root');
-    state = undefined;
-  }
-  return appReducer(state, action);
-};
-
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['auth'],
-};
-
-export default persistReducer(persistConfig, rootReducer);
+export default rootReducer;

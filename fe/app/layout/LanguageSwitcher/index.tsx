@@ -8,10 +8,11 @@ import useLanguage from '@/app/hooks/use-language';
 import { useTranslation } from '@/app/i18n/client';
 import useTheme from '@/app/hooks/use-theme';
 import { LANGUAGES } from '@/app/utils/constants';
+import { I18nNamespace } from '@/app/utils/enum';
 
 export default function LanguageSwitcher({ lng }: App.Lang) {
   const { language, handleLanguage } = useLanguage(lng);
-  const { t } = useTranslation(lng, 'common');
+  const { t } = useTranslation(lng, I18nNamespace.COMMON);
   const { isDark } = useTheme();
   const LanguageIcon = LANGUAGES[language].icon;
 

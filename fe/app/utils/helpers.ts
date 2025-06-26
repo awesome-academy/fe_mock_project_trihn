@@ -1,14 +1,22 @@
 import { jwtDecode } from 'jwt-decode';
-import { AppDispatch, persistor } from '@/app/store';
-import { Language } from './enum';
+import storage from 'redux-persist/lib/storage';
+import { AppDispatch } from '@/app/store';
+import { I18nNamespace, Language } from './enum';
 import type { TFunction } from 'i18next';
 
 export const zodI18n = (t: TFunction) => ({
-  required: (key: string) => ({ message: t(`${key}_required`) }),
-  invalid: (key: string) => ({ message: t(`invalid_${key}`) }),
-  min: (key: string, len: number) => ({ message: t(`${key}_min`, { len }) }),
-  max: (key: string, len: number) => ({ message: t(`${key}_max`, { len }) }),
-  email: () => ({ message: t('invalid_email') }),
+  required: (key: string) => ({
+    message: t('required', { field: t(key), ns: I18nNamespace.VALIDATION }),
+  }),
+  invalid: (key: string) => ({
+    message: t('invalid', { field: t(key), ns: I18nNamespace.VALIDATION }),
+  }),
+  min: (key: string, len: number) => ({
+    message: t('min', { field: t(key), len, ns: I18nNamespace.VALIDATION }),
+  }),
+  max: (key: string, len: number) => ({
+    message: t('max', { field: t(key), len, ns: I18nNamespace.VALIDATION }),
+  }),
 });
 
 export const isMatchRoute = (path: string, pattern: string): boolean => {
@@ -41,9 +49,10 @@ export const isMatch = (path: string, patterns: string[]): boolean =>
 export const getPathname = (lng: Language, pathname: string): string =>
   `/${lng}${pathname}`;
 
-export const resetStore = (dispatch: AppDispatch): void => {
-  persistor.purge();
-  dispatch({ type: 'RESET_STORE' });
+export const resetStore = async (dispatch: AppDispatch): Promise<void> => {
+  const slices = ['auth', 'users'] as const;
+  await Promise.all(slices.map((key) => storage.removeItem(`persist:${key}`)));
+  slices.forEach((key) => dispatch({ type: `${key}/RESET` }));
 };
 
 export const getPaginationRange = (
@@ -83,3 +92,32 @@ export const getPaginationRange = (
   );
   return [1, '...', ...middleRange, '...', total];
 };
+
+export function createFormData<T extends Record<string, App.Any>>(
+  data: T,
+  options?: {
+    ignoreEmpty?: boolean;
+    fileKeys?: (keyof T)[];
+  },
+): FormData {
+  const formData = new FormData();
+  const { ignoreEmpty = true, fileKeys = [] } = options || {};
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (value === undefined || value === null) return;
+
+    if (fileKeys.includes(key as keyof T)) {
+      if (Array.isArray(value) && value[0] instanceof File) {
+        formData.append(key, value[0]);
+      } else if (value instanceof File) {
+        formData.append(key, value);
+      }
+      return;
+    }
+
+    if (ignoreEmpty && value === '') return;
+    formData.append(key, value);
+  });
+
+  return formData;
+}
