@@ -1,33 +1,37 @@
 import { useState, type InputHTMLAttributes } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Eye, EyeOff } from 'lucide-react';
-import type {
-  FieldError,
-  FieldValues,
-  UseFormRegister,
-  Path,
+import {
+  useController,
+  type FieldValues,
+  type Path,
+  type Control,
 } from 'react-hook-form';
 
-type PropsType<T extends FieldValues> =
+type PasswordInputProps<T extends FieldValues> =
   InputHTMLAttributes<HTMLInputElement> & {
-    label?: string;
-    error?: FieldError;
     name: Path<T>;
+    control: Control<T>;
+    label?: string;
     required?: boolean;
-    register: UseFormRegister<T>;
+    disabled?: boolean;
   };
 
 const PasswordInput = <T extends FieldValues>({
   name,
+  control,
   label,
-  className,
-  error,
   required,
   disabled,
-  register,
+  className,
   ...props
-}: PropsType<T>): JSX.Element => {
+}: PasswordInputProps<T>): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    field,
+    fieldState: { error },
+  } = useController({ name, control });
 
   return (
     <div>
@@ -39,20 +43,20 @@ const PasswordInput = <T extends FieldValues>({
       )}
       <div className="relative">
         <input
-          {...register(name)}
+          {...field}
           {...props}
           disabled={disabled}
           type={showPassword ? 'text' : 'password'}
-          className={classnames(
-            'input input-bordered w-full focus:outline-none focus:border-gray-100 focus:ring focus:ring-100 pr-9',
-            { 'border-red-500 focus:ring-red-300': !!error },
+          className={classNames(
+            'input input-bordered w-full pr-9 focus:outline-none focus:ring',
+            { 'border-red-500 ring-red-300': !!error },
             className,
           )}
         />
         {!disabled && (
           <button
             type="button"
-            onClick={() => setShowPassword(!showPassword)}
+            onClick={() => setShowPassword((prev) => !prev)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 focus:outline-none z-10"
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}

@@ -24,7 +24,7 @@ export const getUserSchema = (t: TFunction, isEdit: boolean) => {
       .nonempty(i18n.required('username'))
       .min(3, i18n.min('username', 3)),
     gender: z.string().nonempty(i18n.required('gender')),
-    birthDate: z.string().optional(),
+    birthDate: z.coerce.date().optional(),
     avatar: z.any().optional(),
     phoneNumber: z
       .string()

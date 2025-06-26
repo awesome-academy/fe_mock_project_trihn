@@ -11,10 +11,10 @@ import { get, isEmpty, noop, omit } from 'lodash';
 import { toast } from 'react-toastify';
 
 import axios from '@/app/lib/axios';
-import { createFormData } from '@/app/utils/helpers';
 import { StatusCode } from '@/app/utils/enum';
 import { startLoading, stopLoading } from '@/app/store/loading/slice';
 import { DEFAULT_ROLE_ID } from '@/app/utils/constants';
+import { uploadUserAvatarSaga } from '@/app/store/helper';
 import {
   createUserRequest,
   deleteUserRequest,
@@ -26,6 +26,7 @@ import {
   toggleUserSuccess,
   updateUserRequest,
 } from './slice';
+
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type {
   CreateUserRequest,
@@ -36,6 +37,7 @@ import type {
   ToggleUserRequest,
   UpdateUserRequest,
 } from './types';
+
 import type { AppState } from '@/app/store';
 
 const endpoint = '/users';
@@ -107,18 +109,12 @@ function* createUserRequestSaga(
       axios.post(endpoint, { ...restPayload, role: DEFAULT_ROLE_ID }),
     );
 
-    if (avatar?.[0] instanceof File) {
-      const avatarForm = createFormData({
-        files: avatar[0],
-        ref: 'plugin::users-permissions.user',
-        refId: `${id}`,
-        field: 'avatar',
-      });
-      yield call(() => axios.post('/upload', avatarForm));
+    if (avatar instanceof File) {
+      yield call(uploadUserAvatarSaga, id, avatar);
     }
 
     toast.success(t('create_success', { entity: t('user') }));
-    onSuccess();
+    yield call(onSuccess);
   } catch (error: App.Any) {
     if (error.status === StatusCode.BAD_REQUEST) {
       const message = error.error.message;
@@ -175,22 +171,16 @@ function* updateUserRequestSaga(
     );
 
     //change avatar or delete current avatar
-    if ((isEmpty(avatar) || avatar?.[0] instanceof File) && currentAvatarId) {
+    if ((isEmpty(avatar) || avatar instanceof File) && currentAvatarId) {
       yield call(() => axios.delete(`/upload/files/${currentAvatarId}`));
     }
 
-    if (avatar?.[0] instanceof File) {
-      const avatarForm = createFormData({
-        files: avatar[0],
-        ref: 'plugin::users-permissions.user',
-        refId: `${id}`,
-        field: 'avatar',
-      });
-      yield call(() => axios.post('/upload', avatarForm));
+    if (avatar instanceof File) {
+      yield call(uploadUserAvatarSaga, id, avatar);
     }
 
     toast.success(t('update_success', { entity: t('user') }));
-    onSuccess();
+    yield call(onSuccess);
   } catch (error: App.Any) {
     if (error.status === StatusCode.BAD_REQUEST) {
       const message = error.error.message;

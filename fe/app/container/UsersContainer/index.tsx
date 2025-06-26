@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState, type FC } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useMemo, useState, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Table from '@/app/components/Table';
@@ -129,73 +130,76 @@ const UsersContainer: FC<App.Lang> = ({ lng }) => {
     setIsOpen(false);
   };
 
-  const columns = [
-    {
-      title: t('email'),
-      key: 'email',
-      sortable: true,
-      width: '300px',
-      render: ({ avatar, email }: Users.User) => (
-        <div className="flex items-center gap-2">
-          <Avatar url={avatar?.url} />
-          <span>{email}</span>
-        </div>
-      ),
-    },
-    { title: t('username'), key: 'username', sortable: true, width: '300px' },
-    {
-      title: t('birth_date'),
-      key: 'birthDate',
-      width: '130px',
-      render: ({ birthDate }: Users.User) => (
-        <span className="whitespace-nowrap">{birthDate}</span>
-      ),
-    },
-    { title: t('phone_number'), key: 'phoneNumber', width: '130px' },
-    {
-      title: t('gender'),
-      key: 'gender',
-      width: '100px',
-      render: ({ gender }: Users.User) => t(gender),
-    },
-    {
-      title: t('confirmed'),
-      key: 'confirmed',
-      width: '120px',
-      render: ({ id, confirmed, role }: Users.User) => (
-        <Switch
-          checked={confirmed}
-          disabled={role.name === Role.ADMIN}
-          onChange={() => handleToggleUser(id, 'confirmed', !confirmed)}
-        />
-      ),
-    },
-    {
-      title: t('blocked'),
-      key: 'blocked',
-      width: '110px',
-      render: ({ id, blocked, role }: Users.User) => (
-        <Switch
-          checked={blocked}
-          disabled={role.name === Role.ADMIN}
-          onChange={() => handleToggleUser(id, 'blocked', !blocked)}
-        />
-      ),
-    },
-    {
-      title: t('action'),
-      key: 'action',
-      width: '100px',
-      render: ({ id, role }: Users.User) => (
-        <ActionTable
-          lng={lng}
-          disabled={role.name === Role.ADMIN}
-          onEdit={() => handleEditUser(id)}
-          onDelete={() => handleDeleteUser(id)}
-        />
-      ),
-    },
-  ];
+  const columns = useMemo(
+    () => [
+      {
+        title: t('email'),
+        key: 'email',
+        sortable: true,
+        width: '300px',
+        render: ({ avatar, email }: Users.User) => (
+          <div className="flex items-center gap-2">
+            <Avatar url={avatar?.url} />
+            <span>{email}</span>
+          </div>
+        ),
+      },
+      { title: t('username'), key: 'username', sortable: true, width: '300px' },
+      {
+        title: t('birth_date'),
+        key: 'birthDate',
+        width: '130px',
+        render: ({ birthDate }: Users.User) => (
+          <span className="whitespace-nowrap">{birthDate}</span>
+        ),
+      },
+      { title: t('phone_number'), key: 'phoneNumber', width: '130px' },
+      {
+        title: t('gender'),
+        key: 'gender',
+        width: '100px',
+        render: ({ gender }: Users.User) => t(gender),
+      },
+      {
+        title: t('confirmed'),
+        key: 'confirmed',
+        width: '120px',
+        render: ({ id, confirmed, role }: Users.User) => (
+          <Switch
+            checked={confirmed}
+            disabled={role.name === Role.ADMIN}
+            onChange={() => handleToggleUser(id, 'confirmed', !confirmed)}
+          />
+        ),
+      },
+      {
+        title: t('blocked'),
+        key: 'blocked',
+        width: '110px',
+        render: ({ id, blocked, role }: Users.User) => (
+          <Switch
+            checked={blocked}
+            disabled={role.name === Role.ADMIN}
+            onChange={() => handleToggleUser(id, 'blocked', !blocked)}
+          />
+        ),
+      },
+      {
+        title: t('action'),
+        key: 'action',
+        width: '100px',
+        render: ({ id, role }: Users.User) => (
+          <ActionTable
+            lng={lng}
+            disabled={role.name === Role.ADMIN}
+            onEdit={() => handleEditUser(id)}
+            onDelete={() => handleDeleteUser(id)}
+          />
+        ),
+      },
+    ],
+    [handleDeleteUser, handleEditUser, handleToggleUser, lng, t],
+  );
 
   if (!isLoggedIn) return <p />;
 

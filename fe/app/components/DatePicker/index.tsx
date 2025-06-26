@@ -8,9 +8,9 @@ import {
 } from 'react-hook-form';
 import classNames from 'classnames';
 import ReactDatePicker from 'react-datepicker';
-import { format } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Calendar } from 'lucide-react';
+import { FormatDate } from '@/app/utils/enum';
 
 type Props<T extends FieldValues> = {
   control: Control<T>;
@@ -33,7 +33,7 @@ const DatePicker = <T extends FieldValues>({
   required,
   error,
   showTimeSelect = false,
-  dateFormat = 'yyyy-MM-dd',
+  dateFormat = FormatDate.ISO_DATE,
   placeholder,
   className,
   minDate,
@@ -54,10 +54,8 @@ const DatePicker = <T extends FieldValues>({
           render={({ field }) => (
             <ReactDatePicker
               id={name}
-              selected={field.value}
-              onChange={(date: Date) => {
-                field.onChange(date ? format(date, dateFormat) : '');
-              }}
+              selected={field.value ?? null}
+              onChange={(date: Date) => field.onChange(date)}
               showTimeSelect={showTimeSelect}
               dateFormat={dateFormat}
               timeFormat="HH:mm"

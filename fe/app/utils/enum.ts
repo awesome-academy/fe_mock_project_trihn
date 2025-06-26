@@ -39,3 +39,9 @@ export enum I18nNamespace {
   USERS = 'users',
   VALIDATION = 'validation',
 }
+
+export enum FormatDate {
+  ISO_DATE = 'yyyy-MM-dd',
+  ISO_DATETIME = 'yyyy-MM-dd HH:mm:ss',
+  DISPLAY_DATETIME = 'dd/MM/yyyy HH:mm',
+}

@@ -33,9 +33,9 @@ const AdminLoginContainer: FC<App.Lang> = ({ lng }) => {
   const {
     register,
     handleSubmit,
-    setValue,
     setError,
-    formState: { errors, isSubmitting },
+    control,
+    formState: { isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(getLoginSchema(t)),
     mode: 'all',
@@ -87,18 +87,16 @@ const AdminLoginContainer: FC<App.Lang> = ({ lng }) => {
               name="email"
               label={t('email')}
               placeholder="user@gmail.com"
+              control={control}
+              clearable={false}
               required
-              register={register}
-              error={errors.email}
-              setValue={setValue}
             />
             <PasswordInput
               name="password"
               label={t('password')}
               placeholder="••••••••"
+              control={control}
               required
-              register={register}
-              error={errors.password}
             />
             <div className="flex items-center justify-between">
               <label className="label cursor-pointer">

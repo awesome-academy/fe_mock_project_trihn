@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { cloneDeep } from 'lodash';
 import { PAGINATION_INITIAL } from '@/app/utils/constants';
 import type {
   CreateUserRequest,
@@ -51,7 +52,7 @@ const usersSlice = createSlice({
       const { avatar, birthDate, email, gender, id, phoneNumber, username } =
         action.payload;
       state.user = {
-        birthDate,
+        birthDate: birthDate ? new Date(birthDate) : null,
         email,
         gender,
         id,
@@ -65,7 +66,7 @@ const usersSlice = createSlice({
     },
     updateUserRequest: (_, _action: PayloadAction<UpdateUserRequest>) => {},
     cleanupUser: (state: UsersStore) => {
-      state.user = initialState.user;
+      state.user = cloneDeep(initialState.user);
     },
     cleanupUsers: () => initialState,
   },

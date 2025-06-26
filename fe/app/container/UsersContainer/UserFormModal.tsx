@@ -1,5 +1,5 @@
 'use client';
-import { memo, useLayoutEffect, useMemo, type FC } from 'react';
+import { memo, useEffect, useLayoutEffect, useMemo, type FC } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,10 +44,8 @@ const UserFormModal: FC<UserFormModalProps> = ({ onClose, lng }) => {
 
   const {
     register,
-    setValue,
     handleSubmit,
     reset,
-    watch,
     setError,
     control,
     formState: { errors, isSubmitting, isDirty },
@@ -60,7 +58,7 @@ const UserFormModal: FC<UserFormModalProps> = ({ onClose, lng }) => {
       password: '',
       phoneNumber: '',
       gender: '',
-      birthDate: '',
+      birthDate: null,
       avatar: '',
     },
   });
@@ -87,7 +85,7 @@ const UserFormModal: FC<UserFormModalProps> = ({ onClose, lng }) => {
         t,
         callback: {
           onSuccess: () => {
-            handleClose(true);
+            onClose(true);
           },
           onFailure: (field: keyof UserFormValues, message: string) => {
             setError(field, {
@@ -100,17 +98,19 @@ const UserFormModal: FC<UserFormModalProps> = ({ onClose, lng }) => {
     );
   };
 
-  const handleClose = (isFetchUser = false): void => {
-    onClose(isFetchUser);
+  useEffect(() => {
     if (isEdit) {
-      dispatch(cleanupUser());
+      return () => {
+        dispatch(cleanupUser());
+      };
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Modal
       lng={lng}
-      onClose={handleClose}
+      onClose={onClose}
       isDirty={isDirty}
       title={t(isEdit ? 'edit_user' : 'create_user')}
     >
@@ -129,7 +129,7 @@ const UserFormModal: FC<UserFormModalProps> = ({ onClose, lng }) => {
                         ? `${process.env.NEXT_PUBLIC_API_URL}${user?.avatar?.url}`
                         : ''
                     }
-                    onChange={(file) => field.onChange(file ? [file] : [])}
+                    onChange={(file) => field.onChange(file)}
                     error={
                       typeof errors.avatar?.message === 'string'
                         ? errors.avatar.message
@@ -143,21 +143,15 @@ const UserFormModal: FC<UserFormModalProps> = ({ onClose, lng }) => {
               <Input
                 name="username"
                 label={t('username')}
+                control={control}
                 required
-                watch={watch}
-                register={register}
-                setValue={setValue}
-                error={errors.username}
               />
               <Input
                 name="email"
                 label={t('email')}
-                required
-                watch={watch}
-                register={register}
-                setValue={setValue}
-                error={errors.email}
+                control={control}
                 disabled={isEdit}
+                required
               />
             </div>
           </div>
@@ -166,10 +160,9 @@ const UserFormModal: FC<UserFormModalProps> = ({ onClose, lng }) => {
             <PasswordInput
               name="password"
               label={t('password')}
-              required
-              register={register}
+              control={control}
               disabled={isEdit}
-              error={errors.password}
+              required
               {...(isEdit && { placeholder: '••••••••' })}
             />
             <Select
@@ -183,10 +176,7 @@ const UserFormModal: FC<UserFormModalProps> = ({ onClose, lng }) => {
             <Input
               name="phoneNumber"
               label={t('phone_number')}
-              watch={watch}
-              register={register}
-              setValue={setValue}
-              error={errors.phoneNumber}
+              control={control}
             />
             <DatePicker
               control={control}

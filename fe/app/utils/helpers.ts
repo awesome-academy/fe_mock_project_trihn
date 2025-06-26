@@ -1,7 +1,8 @@
 import { jwtDecode } from 'jwt-decode';
 import storage from 'redux-persist/lib/storage';
+import { format } from 'date-fns';
 import { AppDispatch } from '@/app/store';
-import { I18nNamespace, Language } from './enum';
+import { FormatDate, I18nNamespace, Language } from './enum';
 import type { TFunction } from 'i18next';
 
 export const zodI18n = (t: TFunction) => ({
@@ -121,3 +122,15 @@ export function createFormData<T extends Record<string, App.Any>>(
 
   return formData;
 }
+
+export const formatDate = (
+  date?: Date | string | number | null,
+  pattern: FormatDate = FormatDate.ISO_DATE,
+): string => {
+  if (!date) return '';
+
+  const parsedDate = new Date(date);
+  if (isNaN(parsedDate.getTime())) return '';
+
+  return format(parsedDate, pattern);
+};

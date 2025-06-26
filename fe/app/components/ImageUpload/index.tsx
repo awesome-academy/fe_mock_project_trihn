@@ -20,9 +20,9 @@ const ImageUpload: FC<ImageUploadProps> = ({
   className,
 }) => {
   const [preview, setPreview] = useState<string>(defaultUrl);
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
     if (file) {
       const previewUrl = URL.createObjectURL(file);
@@ -31,7 +31,7 @@ const ImageUpload: FC<ImageUploadProps> = ({
     }
   };
 
-  const handleRemove = () => {
+  const handleRemove = (): void => {
     setPreview('');
     onChange(undefined);
     if (inputRef.current) {
