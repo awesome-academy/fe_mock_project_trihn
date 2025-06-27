@@ -1,5 +1,6 @@
 {
   "save": "Lưu",
+  "add": "Thêm",
   "profile": "Hồ Sơ",
   "sign_out": "Đăng Xuất",
   "vietnamese": "Tiếng Việt",
@@ -9,5 +10,14 @@
   "cancel": "Huỷ",
   "delete": "Xoá",
   "confirm_delete": "Xác nhận xoá?",
-  "are_you_sure": "Bạn có chắc muốn xoá mục này không?"
+  "are_you_sure": "Bạn có chắc muốn xoá mục này không?",
+  "create": "Tạo",
+  "male": "Nam",
+  "female": "Nữ",
+  "create_success": "{{entity}} đã được tạo thành công",
+  "update_success": "{{entity}} đã được cập nhật thành công",
+  "delete_success": "{{entity}} đã được xóa thành công",
+  "unsaved_changes": "Bạn có thay đổi chưa được lưu",
+  "discard_changes_question": "Bạn có chắc chắn muốn hủy các thay đổi không?",
+  "discard": "Hủy thay đổi"
 }

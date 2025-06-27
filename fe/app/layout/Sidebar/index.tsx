@@ -9,12 +9,13 @@ import { getPathname } from '@/app/utils/helpers';
 import { routes } from '@/app/utils/routes';
 import useSidebarExpanded from '@/app/hooks/use-sidebar-expanded';
 import Logo from '@/app/icon/Logo';
+import { I18nNamespace } from '@/app/utils/enum';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import SidebarLink from './SidebarLink';
 import type { FC } from 'react';
 
 const Sidebar: FC<App.Lang> = ({ lng }) => {
-  const { t } = useTranslation(lng, 'sidebar');
+  const { t } = useTranslation(lng, I18nNamespace.SIDEBAR);
   const { sidebarExpanded, handleSidebarExpanded } = useSidebarExpanded();
 
   return (

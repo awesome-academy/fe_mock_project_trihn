@@ -1,9 +1,8 @@
 'use client';
-import { useState, type FC } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { deleteCookie, getCookie } from 'cookies-next';
 
@@ -14,22 +13,29 @@ import PasswordInput from '@/app/components/PasswordInput';
 import { loginRequest } from '@/app/store/auth/slice';
 import Button from '@/app/components/Button';
 import { routes } from '@/app/utils/routes';
-import { Role } from '@/app/utils/enum';
+import { I18nNamespace, Role } from '@/app/utils/enum';
 import { REDIRECT_TO } from '@/app/utils/constants';
 import { getPathname } from '@/app/utils/helpers';
+import { AppState } from '@/app/store';
+import type { FC } from 'react';
 
 const AdminLoginContainer: FC<App.Lang> = ({ lng }) => {
-  const { t } = useTranslation(lng, 'login');
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const { t } = useTranslation(lng, [
+    I18nNamespace.LOGIN,
+    I18nNamespace.VALIDATION,
+  ]);
   const router = useRouter();
+  const isLoggedIn = useSelector<AppState, boolean>(
+    (state) => state.auth.isLoggedIn,
+  );
   const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
-    setValue,
     setError,
-    formState: { errors },
+    control,
+    formState: { isSubmitting },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(getLoginSchema(t)),
     mode: 'all',
@@ -38,7 +44,6 @@ const AdminLoginContainer: FC<App.Lang> = ({ lng }) => {
   });
 
   const onSubmit = (data: LoginFormValues) => {
-    setIsSubmitted(true);
     dispatch(
       loginRequest({
         payload: data,
@@ -63,11 +68,12 @@ const AdminLoginContainer: FC<App.Lang> = ({ lng }) => {
               );
             }
           },
-          onFinish: () => setIsSubmitted(false),
         },
       }),
     );
   };
+
+  if (isLoggedIn) return <p />;
 
   return (
     <section className="min-h-screen bg-base-100 flex items-center justify-center px-6 py-8">
@@ -81,16 +87,16 @@ const AdminLoginContainer: FC<App.Lang> = ({ lng }) => {
               name="email"
               label={t('email')}
               placeholder="user@gmail.com"
-              register={register}
-              error={errors.email}
-              setValue={setValue}
+              control={control}
+              clearable={false}
+              required
             />
             <PasswordInput
               name="password"
               label={t('password')}
               placeholder="••••••••"
-              register={register}
-              error={errors.password}
+              control={control}
+              required
             />
             <div className="flex items-center justify-between">
               <label className="label cursor-pointer">
@@ -108,7 +114,7 @@ const AdminLoginContainer: FC<App.Lang> = ({ lng }) => {
                 {`${t('forgot_password')}?`}
               </Link>
             </div>
-            <Button type="submit" className="w-full" disabled={isSubmitted}>
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
               {t('sign_in')}
             </Button>
           </form>

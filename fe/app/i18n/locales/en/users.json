@@ -2,13 +2,16 @@
   "search_email_or_username": "Search email or username",
   "email": "Email",
   "username": "Username",
-  "birth_date": "Birth date",
-  "phone_number": "Phone number",
+  "birth_date": "Birth Date",
+  "phone_number": "Phone Number",
   "gender": "Gender",
   "male": "Male",
   "female": "Female",
   "confirmed": "Confirmed",
   "blocked": "Blocked",
-  "user_deleted": "User deleted successfully.",
-  "user_status_updated": "User {{field}} status updated."
+  "user_status_updated": "User {{field}} status updated.",
+  "create_user": "Create User",
+  "edit_user": "Edit User",
+  "user": "User",
+  "password": "Password"
 }

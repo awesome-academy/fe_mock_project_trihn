@@ -9,7 +9,7 @@ import { AppState } from '@/app/store';
 import { getPathname, resetStore } from '@/app/utils/helpers';
 import { routes } from '@/app/utils/routes';
 import { useTranslation } from '@/app/i18n/client';
-import { Role } from '@/app/utils/enum';
+import { I18nNamespace, Role } from '@/app/utils/enum';
 import { ROLE, TOKEN } from '@/app/utils/constants';
 import { logout } from '@/app/store/auth/slice';
 import useTheme from '@/app/hooks/use-theme';
@@ -18,7 +18,7 @@ import Avatar from '@/app/components/Avatar';
 
 const DropdownProfile: React.FC<App.Lang> = ({ lng }) => {
   const user = useSelector<AppState, App.User>((state) => state.auth.user);
-  const { t } = useTranslation(lng, 'common');
+  const { t } = useTranslation(lng, I18nNamespace.COMMON);
   const dispatch = useDispatch();
   const router = useRouter();
   const { isDark } = useTheme();

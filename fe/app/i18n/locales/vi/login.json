@@ -4,11 +4,5 @@
   "remember_me": "Ghi nhớ tôi",
   "forgot_password": "Quên mật khẩu",
   "sign_in": "Đăng nhập",
-  "sign_in_to_your_account": "Đăng nhập vào tài khoản của bạn",
-  "email_required": "Email là bắt buộc",
-  "invalid_email": "Vui lòng nhập địa chỉ email hợp lệ",
-  "password_required": "Mật khẩu là bắt buộc",
-  "password_min": "Mật khẩu phải có ít nhất {{len}} ký tự",
-  "email_is_not_confirmed_or_registered": "Email chưa được xác nhận hoặc đăng ký",
-  "invalid_email_or_password": "Email hoặc mật khẩu không hợp lệ"
+  "sign_in_to_your_account": "Đăng nhập vào tài khoản của bạn"
 }

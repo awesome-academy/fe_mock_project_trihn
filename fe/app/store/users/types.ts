@@ -1,8 +1,8 @@
 import type { TFunction } from 'i18next';
+import type { UserFormValues } from '@/app/validation/userSchema';
 
-export type UsersStore = {
-  data: Users.Users;
-  pagination: App.Pagination;
+export type UsersStore = FetchUsersSuccess & {
+  user: UserFormValues & { id?: number };
 };
 
 export type FetchUsersRequest = {
@@ -10,7 +10,10 @@ export type FetchUsersRequest = {
   callback: App.Callback;
 };
 
-export type FetchUsersSuccess = UsersStore;
+export type FetchUsersSuccess = {
+  data: Users.Users;
+  pagination: App.Pagination;
+};
 
 export type FetchUsersResponse = {
   data: Users.Users;
@@ -19,10 +22,8 @@ export type FetchUsersResponse = {
   };
 };
 
-export type DeleteUserRequest = {
-  id: number;
+export type DeleteUserRequest = FetchUserRequest & {
   t: TFunction;
-  callback: App.Callback;
 };
 
 export type ToggleUserRequest = ToggleUserSuccess & {
@@ -34,3 +35,16 @@ export type ToggleUserSuccess = {
   field: 'confirmed' | 'blocked';
   value: boolean;
 };
+
+export type CreateUserRequest = {
+  payload: UserFormValues;
+  t: TFunction;
+  callback: App.Callback;
+};
+
+export type FetchUserRequest = {
+  id: number;
+  callback: App.Callback;
+};
+
+export type UpdateUserRequest = CreateUserRequest & { id: number };

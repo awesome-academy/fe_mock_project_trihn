@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import useTheme from '@/app/hooks/use-theme';
 import { useTranslation } from '@/app/i18n/client';
 import { getPaginationRange } from '@/app/utils/helpers';
+import { I18nNamespace } from '@/app/utils/enum';
 import Button from '../Button';
 
 export type PaginationProps = {
@@ -30,7 +31,7 @@ const Pagination: FC<PaginationProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(page);
   const [currentPageSize, setCurrentPageSize] = useState<number>(pageSize);
   const { isDark } = useTheme();
-  const { t } = useTranslation(lng, 'common');
+  const { t } = useTranslation(lng, I18nNamespace.COMMON);
 
   const totalPages = Math.ceil(total / pageSize);
   const range = getPaginationRange(page, totalPages, siblingCount);

@@ -2,6 +2,7 @@
 import { Edit, Trash2 } from 'lucide-react';
 import { useEffect, useRef, useState, type FC } from 'react';
 import { useTranslation } from '@/app/i18n/client';
+import { I18nNamespace } from '@/app/utils/enum';
 
 type ActionTableProps = {
   onEdit?: () => void;
@@ -17,7 +18,7 @@ const ActionTable: FC<ActionTableProps> = ({
 }) => {
   const [showPopover, setShowPopover] = useState(false);
   const popoverRef = useRef<HTMLDivElement>(null);
-  const { t } = useTranslation(lng, 'common');
+  const { t } = useTranslation(lng, I18nNamespace.COMMON);
 
   const handleClickOutside = (e: MouseEvent) => {
     if (popoverRef.current && !popoverRef.current.contains(e.target as Node)) {

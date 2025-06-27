@@ -115,15 +115,17 @@ const Table = <T,>({
                 </tr>
               ))
             ) : isEmpty(data) ? (
-              <td
-                colSpan={columns.length}
-                className={classNames(
-                  ' text-center py-6',
-                  isDark ? 'bg-gray-800' : 'bg-white',
-                )}
-              >
-                <FileX className="mx-auto h-16 w-16 text-gray-base" />
-              </td>
+              <tr>
+                <td
+                  colSpan={columns.length}
+                  className={classNames(
+                    ' text-center py-6',
+                    isDark ? 'bg-gray-800' : 'bg-white',
+                  )}
+                >
+                  <FileX className="mx-auto h-16 w-16 text-gray-base" />
+                </td>
+              </tr>
             ) : (
               data.map((item, i) => (
                 <tr

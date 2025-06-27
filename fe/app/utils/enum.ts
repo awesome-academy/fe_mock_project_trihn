@@ -26,3 +26,22 @@ export enum SortDirection {
   ASC = 'asc',
   DESC = 'desc',
 }
+
+export enum Gender {
+  MALE = 'male',
+  FEMALE = 'female',
+}
+
+export enum I18nNamespace {
+  COMMON = 'common',
+  LOGIN = 'login',
+  SIDEBAR = 'sidebar',
+  USERS = 'users',
+  VALIDATION = 'validation',
+}
+
+export enum FormatDate {
+  ISO_DATE = 'yyyy-MM-dd',
+  ISO_DATETIME = 'yyyy-MM-dd HH:mm:ss',
+  DISPLAY_DATETIME = 'dd/MM/yyyy HH:mm',
+}

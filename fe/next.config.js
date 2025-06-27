@@ -6,7 +6,7 @@ const projectDir = process.cwd();
 loadEnvConfig(projectDir);
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     domains: ['localhost'],
   },

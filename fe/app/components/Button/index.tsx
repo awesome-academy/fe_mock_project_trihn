@@ -3,9 +3,9 @@ import classNames from 'classnames';
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
   type?: 'button' | 'submit' | 'reset';
-  variant?: 'primary' | 'secondary' | 'pagination' | 'add';
+  variant?: 'primary' | 'secondary' | 'pagination' | 'add' | 'cancel';
   size?: 'sm' | 'md';
   disabled?: boolean;
   className?: string;
@@ -21,6 +21,7 @@ const variants: Record<NonNullable<ButtonProps['variant']>, string> = {
   primary: 'bg-blue-600 hover:bg-blue-700',
   secondary: 'bg-gray-600 hover:bg-gray-700',
   add: 'bg-green-400 hover:bg-green-500',
+  cancel: 'btn',
   pagination:
     'min-w-[42px] btn btn-sm hover:bg-violet-500 !text-gray-500 hover:!text-white !shadow-none',
 };

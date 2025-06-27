@@ -1,0 +1,8 @@
+{
+  "required": "{{field}} là bắt buộc",
+  "invalid": "{{field}} không hợp lệ",
+  "min": "{{field}} phải có ít nhất {{len}} ký tự",
+  "max": "{{field}} không được vượt quá {{len}} ký tự",
+  "email_is_not_confirmed_or_registered": "Email chưa được xác nhận hoặc chưa được đăng ký",
+  "invalid_email_or_password": "Email hoặc mật khẩu không đúng"
+}

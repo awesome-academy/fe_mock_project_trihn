@@ -1,56 +1,67 @@
 import { useState, type InputHTMLAttributes } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Eye, EyeOff } from 'lucide-react';
-import type {
-  FieldError,
-  FieldValues,
-  UseFormRegister,
-  Path,
+import {
+  useController,
+  type FieldValues,
+  type Path,
+  type Control,
 } from 'react-hook-form';
 
-type PropsType<T extends FieldValues> =
+type PasswordInputProps<T extends FieldValues> =
   InputHTMLAttributes<HTMLInputElement> & {
-    label?: string;
-    error?: FieldError;
     name: Path<T>;
-    register: UseFormRegister<T>;
+    control: Control<T>;
+    label?: string;
+    required?: boolean;
+    disabled?: boolean;
   };
 
 const PasswordInput = <T extends FieldValues>({
   name,
+  control,
   label,
+  required,
+  disabled,
   className,
-  error,
-  register,
   ...props
-}: PropsType<T>): JSX.Element => {
+}: PasswordInputProps<T>): JSX.Element => {
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    field,
+    fieldState: { error },
+  } = useController({ name, control });
 
   return (
     <div>
       {label && (
         <label htmlFor={name} className="label mb-[2px]">
           <span className="label-text">{label}</span>
+          {required && <span className="text-red-500">*</span>}
         </label>
       )}
       <div className="relative">
         <input
-          {...register(name)}
+          {...field}
           {...props}
+          disabled={disabled}
           type={showPassword ? 'text' : 'password'}
-          className={classnames(
-            'input input-bordered w-full focus:outline-none focus:border-gray-100 focus:ring focus:ring-100 pr-9',
-            { 'border-red-500 focus:ring-red-300': !!error },
+          className={classNames(
+            'input input-bordered w-full pr-9 focus:outline-none focus:ring',
+            { 'border-red-500 ring-red-300': !!error },
             className,
           )}
         />
-        <button
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-base-content focus:outline-none z-10"
-        >
-          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-        </button>
+        {!disabled && (
+          <button
+            type="button"
+            onClick={() => setShowPassword((prev) => !prev)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 focus:outline-none z-10"
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        )}
       </div>
       {error && (
         <span className="text-sm text-red-500 mt-1">{error.message}</span>

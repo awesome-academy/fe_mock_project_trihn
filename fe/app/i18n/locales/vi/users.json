@@ -1,14 +1,17 @@
 {
   "search_email_or_username": "Tìm kiếm email hoặc tên người dùng",
   "email": "Email",
-  "username": "Tên người dùng",
-  "birth_date": "Ngày sinh",
-  "phone_number": "Số điện thoại",
-  "gender": "Giới tính",
+  "username": "Tên Người Dùng",
+  "birth_date": "Ngày Sinh",
+  "phone_number": "Số Điện Thoại",
+  "gender": "Giới Tính",
   "male": "Nam",
   "female": "Nữ",
   "confirmed": "Xác thực",
   "blocked": "Chặn",
-  "user_deleted": "Xoá người dùng thành công.",
-  "user_status_updated": "Trạng thái {{field}} của người dùng đã được cập nhật."
+  "user_status_updated": "Trạng thái {{field}} của người dùng đã được cập nhật.",
+  "create_user": "Tạo Người Dùng",
+  "edit_user": "Chỉnh Sửa Người Dùng",
+  "user": "Người dùng",
+  "password": "Mật khẩu"
 }
