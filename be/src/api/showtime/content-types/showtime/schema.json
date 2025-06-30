@@ -23,6 +23,12 @@
       "target": "api::room.room",
       "inversedBy": "showtimes"
     },
+    "cinema": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::cinema.cinema",
+      "inversedBy": "showtimes"
+    },
     "startTime": {
       "type": "datetime",
       "required": true

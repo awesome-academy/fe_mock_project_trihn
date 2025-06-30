@@ -30,6 +30,12 @@
       "relation": "oneToMany",
       "target": "api::room.room",
       "mappedBy": "cinema"
+    },
+    "showtimes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::showtime.showtime",
+      "mappedBy": "cinema"
     }
   }
 }

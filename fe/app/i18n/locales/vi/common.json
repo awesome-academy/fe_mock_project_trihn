@@ -19,5 +19,7 @@
   "delete_success": "{{entity}} đã được xóa thành công",
   "unsaved_changes": "Bạn có thay đổi chưa được lưu",
   "discard_changes_question": "Bạn có chắc chắn muốn hủy các thay đổi không?",
-  "discard": "Hủy thay đổi"
+  "discard": "Hủy thay đổi",
+  "created_at": "Ngày tạo",
+  "updated_at": "Ngày cập nhật"
 }
