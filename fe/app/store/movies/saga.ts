@@ -7,7 +7,6 @@ import {
   type StrictEffect,
 } from 'redux-saga/effects';
 import { get, noop } from 'lodash';
-import { toast } from 'react-toastify';
 
 import axios from '@/app/lib/axios';
 import {
@@ -64,12 +63,11 @@ function* fetchMoviesRequestSaga(
 function* deleteMovieRequestSaga(
   action: PayloadAction<DeleteMovieRequest>,
 ): Generator<StrictEffect, void, void> {
-  const { id, callback, t } = action.payload;
+  const { id, callback } = action.payload;
   const onSuccess = get(callback, 'onSuccess', noop);
 
   try {
     yield call(() => axios.delete(`${endpoint}/${id}`));
-    toast.success(t('delete_success', { entity: t('movie') }));
     onSuccess();
   } catch (error: App.Any) {
     //

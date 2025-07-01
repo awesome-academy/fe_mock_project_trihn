@@ -13,7 +13,7 @@ const initialState: MoviesStore = {
 };
 
 const moviesSlice = createSlice({
-  name: 'users',
+  name: 'movies',
   initialState,
   reducers: {
     fetchMoviesRequest: (_, _action: PayloadAction<FetchMoviesRequest>) => {},

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, type FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 import Table from '@/app/components/Table';
 import SearchBar from '@/app/components/SearchBar';
@@ -11,6 +12,7 @@ import { I18nNamespace, SortDirection } from '@/app/utils/enum';
 import useTable from '@/app/hooks/use-table';
 import { useTranslation } from '@/app/i18n/client';
 import { formatDate, formatDurationToHHmm } from '@/app/utils/helpers';
+
 import {
   cleanupMovies,
   deleteMovieRequest,
@@ -84,9 +86,9 @@ const MoviesContainer: FC<App.Lang> = ({ lng }) => {
     dispatch(
       deleteMovieRequest({
         id,
-        t,
         callback: {
           onSuccess: () => {
+            toast.success(t('delete_success', { entity: t('movie') }));
             if (isLastItemRemoved) {
               const targetPage =
                 isLastItemRemoved && page > 1 ? page - 1 : page;

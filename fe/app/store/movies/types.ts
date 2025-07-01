@@ -1,5 +1,3 @@
-import type { TFunction } from 'i18next';
-
 export type MoviesStore = FetchMoviesSuccess;
 
 export type FetchMoviesRequest = {
@@ -22,5 +20,4 @@ export type FetchMoviesResponse = {
 export type DeleteMovieRequest = {
   id: number;
   callback: App.Callback;
-  t: TFunction;
 };
