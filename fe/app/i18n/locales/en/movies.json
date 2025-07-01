@@ -1,0 +1,9 @@
+{
+  "poster": "Poster",
+  "title": "Title",
+  "description": "Description",
+  "duration": "Duration",
+  "release_year": "Release year",
+  "movie": "Movie",
+  "search_title_or_description": "Search title or description"
+}

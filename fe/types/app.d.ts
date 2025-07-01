@@ -16,21 +16,23 @@ declare namespace App {
     children: ReactNode;
   } & LanguageProps;
 
+  type BaseData = {
+    documentId: string;
+    id: number;
+    name: string;
+  };
+
   type User = {
     id: number;
     email: string;
     username: string;
-    role: {
-      documentId: string;
-      id: number;
+    role: Omit<BaseData, 'name'> & {
       name: Role;
     };
     phoneNumber: string;
     gender: string;
     birthDate: string;
-    avatar: {
-      documentId: string;
-      id: number;
+    avatar: Omit<BaseData, 'name'> & {
       url: string;
     };
   };

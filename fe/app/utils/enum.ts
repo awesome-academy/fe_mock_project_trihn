@@ -37,6 +37,7 @@ export enum I18nNamespace {
   LOGIN = 'login',
   SIDEBAR = 'sidebar',
   USERS = 'users',
+  MOVIES = 'movies',
   VALIDATION = 'validation',
 }
 

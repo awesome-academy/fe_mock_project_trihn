@@ -7,7 +7,7 @@ import { I18nNamespace } from '@/app/utils/enum';
 type ActionTableProps = {
   onEdit?: () => void;
   onDelete?: () => void;
-  disabled: boolean;
+  disabled?: boolean;
 } & App.Lang;
 
 const ActionTable: FC<ActionTableProps> = ({

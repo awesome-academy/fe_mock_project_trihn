@@ -19,5 +19,7 @@
   "delete_success": "{{entity}} has been deleted successfully",
   "unsaved_changes": "You have unsaved changes",
   "discard_changes_question": "Are you sure you want to discard your changes?",
-  "discard": "Discard"
+  "discard": "Discard",
+  "created_at": "Created at",
+  "updated_at": "Updated at"
 }
